@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Dosis Pediátrica</title>
+</head>
+<body>
+  <h2>Calculadora de Dosis Pediátrica</h2>
+
+  <label>Peso (kg): <input type="number" id="peso"></label><br><br>
+  <label>Dosis (mg/kg): <input type="number" id="dosis"></label><br><br>
+  <label>Mg del frasco: <input type="number" id="mg"></label><br><br>
+  <label>ML del frasco: <input type="number" id="ml"></label><br><br>
+
+  <button onclick="calcular()">Calcular</button>
+  <button onclick="limpiar()">Limpiar</button>
+
+  <h3 id="resultado"></h3>
+
+  <script>
+    function calcular() {
+      const peso = parseFloat(document.getElementById("peso").value);
+      const dosis = parseFloat(document.getElementById("dosis").value);
+      const mg = parseFloat(document.getElementById("mg").value);
+      const ml = parseFloat(document.getElementById("ml").value);
+
+      if (isNaN(peso) || isNaN(dosis) || isNaN(mg) || isNaN(ml) || peso <= 0 || dosis <= 0 || mg <= 0 || ml <= 0) {
+        document.getElementById("resultado").innerHTML = "⚠️ Por favor completa todos los campos correctamente.";
+        return;
+      }
+
+      const resultadoMl = (peso * dosis) / (mg / ml);
+      const gotas = resultadoMl * 20;
+
+      document.getElementById("resultado").innerHTML =
+        `💧 <strong>Dosis:</strong> ${resultadoMl.toFixed(2)} ml<br>🔹 <strong>Gotas:</strong> ${gotas.toFixed(0)} gotas`;
+    }
+
+    function limpiar() {
+      document.getElementById("peso").value = "";
+      document.getElementById("dosis").value = "";
+      document.getElementById("mg").value = "";
+      document.getElementById("ml").value = "";
+      document.getElementById("resultado").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
